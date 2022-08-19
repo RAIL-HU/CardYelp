@@ -7,8 +7,13 @@ const CardStoreSchema = new Schema({
         required: true
     },
     price: {
+        type: Number,
+        required: true,
+        min: 0
+    },
+    cardgame: {
         type: String,
-        required: true
+        enum: ['magic', 'yugioh', 'pokemon', 'weiss', 'vanguard']
     },
     description: {
         type: String,
@@ -18,8 +23,16 @@ const CardStoreSchema = new Schema({
         type: String,
         required: true
     },
-    cardgames: {
+    recurrence: {
         type: String,
-        required: true
-    }
-})
+        enum: ['mon', 'tue', 'wed', 'thu', 'fri', 'sat', 'sun']
+    },
+    time: {
+        type: Number,
+        required: true,
+        min: 800,
+        max: 2400
+    },
+});
+
+module.exports = mongoose.model('CardStore', CardStoreSchema);
