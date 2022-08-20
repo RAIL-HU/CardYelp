@@ -17,7 +17,6 @@ const CardStoreSchema = new Schema({
     },
     description: {
         type: String,
-        required: true
     },
     location: {
         type: String,
@@ -31,7 +30,7 @@ const CardStoreSchema = new Schema({
         type: Number,
         required: true,
         min: 800,
-        max: 2400
+        max: 2300
     },
 });
 

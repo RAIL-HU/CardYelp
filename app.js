@@ -20,7 +20,7 @@ app.get('/', (req, res) => {
     res.render('home');
 })
 app.get('/addnewstore', async (req, res) => {
-    const store = new Store({title: 'Arroyo Cards', price: 1, cardgame: 'weiss', description: 'AV residents only!!!', location: '1000 Arroyo Dr, Irvine, CA 92617'})
+    const store = new Store({title: 'Arroyo Cards', price: 1, cardgame: 'weiss', description: 'AV residents only!!!', location: '1000 Arroyo Dr, Irvine, CA 92617', recurrence: 'fri', time: 1900})
     await store.save();
     res.send(store);
 })
