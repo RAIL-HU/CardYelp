@@ -25,7 +25,13 @@ module.exports.descriptors = [
     'Northern',
     'Southern',
     'Eastern',
-    'Western'
+    'Western',
+    'Lycoris',
+    'Chisato',
+    'Lisa',
+    'Takina',
+    'Ruby',
+    'Sapphire'
 ];
 
 module.exports.places = [
@@ -38,7 +44,8 @@ module.exports.places = [
     'Card Shop',
     'Kingdom',
     'Cards & Toys',
-    'Comics & Hobbies'
+    'Comics & Hobbies',
+    'Card Cafe'
 ];
 
 module.exports.games = ['magic', 'yugioh', 'pokemon', 'weiss', 'vanguard'];

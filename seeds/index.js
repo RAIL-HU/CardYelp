@@ -19,9 +19,11 @@ const seedDB = async () => {
     for (let i = 0; i < 50; i++) {
         const random1000 = Math.floor(Math.random() * 1000);
         const store = new Store({
+            image: 'https://source.unsplash.com/random/600×800/?shop',
             title: `${sample(descriptors)} ${sample(places)}`,
             price: Math.ceil(Math.random() * 20),
             cardgame: games[Math.floor(Math.random() * 5)],
+            description: 'Lorem ipsum dolor sit, amet consectetur adipisicing elit. Cum quasi ipsum id ratione possimus corrupti, aliquid quae labore distinctio minus velit optio maiores neque saepe. Voluptatum ut iusto optio mollitia.',
             location: `${cities[random1000].city}, ${cities[random1000].state}`,
             recurrence: recurrence[Math.floor(Math.random() * 7)],
             time: (Math.floor(Math.random() * 15) + 8) * 100
