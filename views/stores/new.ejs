@@ -2,24 +2,32 @@
 <div class="row">
     <h1 class="text-center">Add A New Store</h1>
     <div class="col-6 offset-3">
-        <form action="/stores" method="POST">
+        <form action="/stores" method="POST" novalidate class="validated-form">
             <div class="mb-3">
                 <label class="form-label" for="image">Image URL: </label>
-                <input class="form-control" type="text" id="image" name="store[image]" placeholder="">
+                <input class="form-control" type="text" id="image" name="store[image]" required>
+                <div class="valid-feedback">
+                    Looks good!
+                </div>
             </div>
 
             <div class="mb-3">
                 <label class="form-label" for="title">Store Name: </label>
-                <input class="form-control" type="text" id="title" name="store[title]" placeholder="Store Name">
+                <input class="form-control" type="text" id="title" name="store[title]" placeholder="Store Name" required>
+                <div class="valid-feedback">
+                    Looks good!
+                </div>
             </div>
     
             <div class="mb-3">
                 <label class="form-label" for="price">Price: </label>
                 <div class="input-group">
                     <span class="input-group-text" id="price-label">$</span>
-                    <input class="form-control" type="number" id="price" name="store[price]" placeholder=0 aria-label="price" aria-describedby="basic-addon1">
+                    <input class="form-control" type="number" id="price" name="store[price]" placeholder=0 aria-label="price" aria-describedby="basic-addon1" required>
                 </div>
-                
+                <div class="valid-feedback">
+                    Looks good!
+                </div>
             </div>
     
             <div class="mb-3">
@@ -29,16 +37,25 @@
                         <option value="<%= game %>"><%= game.charAt(0).toUpperCase() + game.slice(1) %></option>
                     <% } %>
                 </select>
+                <div class="valid-feedback">
+                    Looks good!
+                </div>
             </div>
     
             <div class="mb-3">
                 <label class="form-label" for="description">Description: </label>
-                <textarea class="form-control" type="text" id="description" name="store[description]" placeholder="Description"></textarea>
+                <textarea class="form-control" type="text" id="description" name="store[description]" placeholder="Description" required></textarea>
+                <div class="valid-feedback">
+                    Looks good!
+                </div>
             </div>
     
             <div class="mb-3">
                 <label class="form-label" for="location">Address: </label>
-                <input class="form-control" type="text" id="location" name="store[location]" placeholder="Address">
+                <input class="form-control" type="text" id="location" name="store[location]" placeholder="Address" required>
+                <div class="valid-feedback">
+                    Looks good!
+                </div>
             </div>
     
             <div class="mb-3">
@@ -48,11 +65,17 @@
                         <option value="<%= r %>"><%= r.charAt(0).toUpperCase() + r.slice(1) %></option>
                     <% } %>
                 </select>
+                <div class="valid-feedback">
+                    Looks good!
+                </div>
             </div>
     
             <div class="mb-3">
                 <label class="form-label" for="time">Start Time: </label>
-                <input class="form-control" type="number" id="time" name="store[time]" placeholder="24 Hours & Number Only, ex. 1300 for 1pm">
+                <input class="form-control" type="number" id="time" name="store[time]" placeholder="24 Hours & Number Only, ex. 1300 for 1pm" required>
+                <div class="valid-feedback">
+                    Looks good!
+                </div>
             </div>
     
             <button class="btn btn-success">Submit</button>
