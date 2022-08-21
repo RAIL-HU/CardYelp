@@ -31,7 +31,13 @@ module.exports.descriptors = [
     'Lisa',
     'Takina',
     'Ruby',
-    'Sapphire'
+    'Sapphire',
+    'Kasumi',
+    'Yukina',
+    'Eve',
+    'Owl',
+    'Aozora',
+    'Nova'
 ];
 
 module.exports.places = [

@@ -1,51 +1,63 @@
 <% layout('layouts/boilerplate') %>
-    <h1>Add A New Store</h1>
+<div class="row">
+    <h1 class="text-center">Add A New Store</h1>
+    <div class="col-6 offset-3">
+        <form action="/stores" method="POST">
+            <div class="mb-3">
+                <label class="form-label" for="image">Image URL: </label>
+                <input class="form-control" type="text" id="image" name="store[image]" placeholder="">
+            </div>
 
-    <form action="/stores" method="POST">
-        <div>
-            <label for="title">Store Name: </label>
-            <input type="text" id="title" name="store[title]" placeholder="Store Name">
-        </div>
+            <div class="mb-3">
+                <label class="form-label" for="title">Store Name: </label>
+                <input class="form-control" type="text" id="title" name="store[title]" placeholder="Store Name">
+            </div>
+    
+            <div class="mb-3">
+                <label class="form-label" for="price">Price: </label>
+                <div class="input-group">
+                    <span class="input-group-text" id="price-label">$</span>
+                    <input class="form-control" type="number" id="price" name="store[price]" placeholder=0 aria-label="price" aria-describedby="basic-addon1">
+                </div>
+                
+            </div>
+    
+            <div class="mb-3">
+                <label class="form-label" for="cardgame">Card Game: </label>
+                <select class="form-control" id="cardgame" name="store[cardgame]">
+                    <% for (let game of games){ %>
+                        <option value="<%= game %>"><%= game.charAt(0).toUpperCase() + game.slice(1) %></option>
+                    <% } %>
+                </select>
+            </div>
+    
+            <div class="mb-3">
+                <label class="form-label" for="description">Description: </label>
+                <textarea class="form-control" type="text" id="description" name="store[description]" placeholder="Description"></textarea>
+            </div>
+    
+            <div class="mb-3">
+                <label class="form-label" for="location">Address: </label>
+                <input class="form-control" type="text" id="location" name="store[location]" placeholder="Address">
+            </div>
+    
+            <div class="mb-3">
+                <label class="form-label" for="recurrence">Tournament On: </label>
+                <select class="form-control" id="recurrence" name="store[recurrence]">
+                    <% for (let r of recurrence){ %>
+                        <option value="<%= r %>"><%= r.charAt(0).toUpperCase() + r.slice(1) %></option>
+                    <% } %>
+                </select>
+            </div>
+    
+            <div class="mb-3">
+                <label class="form-label" for="time">Start Time: </label>
+                <input class="form-control" type="number" id="time" name="store[time]" placeholder="24 Hours & Number Only, ex. 1300 for 1pm">
+            </div>
+    
+            <button class="btn btn-success">Submit</button>
+        </form>
+    </div>
+</div>
 
-        <div>
-            <label for="price">Price: </label>
-            <input type="number" id="price" name="store[price]" placeholder="Price">
-        </div>
-
-        <div>
-            <label for="cardgame">Card Game: </label>
-            <select id="cardgame" name="store[cardgame]">
-                <% for (let game of games){ %>
-                    <option value="<%= game %>"><%= game.charAt(0).toUpperCase() + game.slice(1) %></option>
-                <% } %>
-            </select>
-        </div>
-
-        <div>
-            <label for="description">Description: </label>
-            <input type="text" id="description" name="store[description]" placeholder="Description">
-        </div>
-
-        <div>
-            <label for="location">Address: </label>
-            <input type="text" id="location" name="store[location]" placeholder="Address">
-        </div>
-
-        <div>
-            <label for="recurrence">Tournament On: </label>
-            <select id="recurrence" name="store[recurrence]">
-                <% for (let r of recurrence){ %>
-                    <option value="<%= r %>"><%= r.charAt(0).toUpperCase() + r.slice(1) %></option>
-                <% } %>
-            </select>
-        </div>
-
-        <div>
-            <label for="time">Start Time: </label>
-            <input type="number" id="time" name="store[time]" placeholder="Num Only, ex. 1300 for 1pm">
-        </div>
-
-        <button>Add New Store</button>
-    </form>
-
-    <footer><a href="/stores">All Card Stores</a></footer>
+<footer><a href="/stores">All Card Stores</a></footer>

@@ -1,19 +1,26 @@
 <% layout('layouts/boilerplate') %>
-<h1><%= store.title %></h1>
-<h2><%= store.location %></h2>
-<img src="<%= store.image %>" alt="">
-<p>Description: <%= store.description %></p>
-<p>Price: <%= store.price %></p>
-<p>Card Game: <%= store.cardgame.charAt(0).toUpperCase() + store.cardgame.slice(1) %></p>
-<p>Recurrence: <%= store.recurrence.charAt(0).toUpperCase() + store.recurrence.slice(1) %></p>
-<p>Time: <%= store.time / 100 %>: 00 (Local Time)</p>
-
-<p><a href="/stores/<%= store._id %>/edit">Edit</a></p>
-
-<form action="/stores/<%= store._id %>?_method=DELETE" method="POST">
-    <button>Delete</button>
-</form>
-
-<footer>
-    <a href="/stores">All Card Stores</a>
-</footer>
+<div class="row">
+    <div class="col-6 offset-3">
+        <div class="card mb-3">
+            <img src="<%= store.image %>" class="card-img-top" alt="...">
+            <div class="card-body">
+              <h5 class="card-title"><%= store.title %></h5>
+              <p class="card-text"><%= store.location %></p>
+            </div>
+            <ul class="list-group list-group-flush">
+              <li class="list-group-item"><%= store.cardgame.charAt(0).toUpperCase() + store.cardgame.slice(1) %> @$<%= store.price %></li>
+              <li class="list-group-item">Description/Note: <%= store.description %></li>
+              <li class="list-group-item">Recurrence: <%= store.recurrence.charAt(0).toUpperCase() + store.recurrence.slice(1) %> <%= store.time / 100 %>: 00 (Local Time)</li>
+            </ul>
+            <div class="card-body">
+                <a href="/stores/<%= store._id %>/edit" class="card-link btn btn-primary">Edit</a>
+                <form class="d-inline" action="/stores/<%= store._id %>?_method=DELETE" method="POST">
+                    <button class="btn btn-danger">Delete</button>
+                </form>
+            </div>
+            <div class="card-footer text-muted">
+                <a href="/stores">All Card Stores</a>
+            </div>
+        </div>
+    </div>
+</div>
