@@ -18,7 +18,14 @@ module.exports.descriptors = [
     'Sea',
     'Sky',
     'Arroyo',
-    'Diamond'
+    'Diamond',
+    'ABC',
+    'XYZ',
+    'Union',
+    'Northern',
+    'Southern',
+    'Eastern',
+    'Western'
 ];
 
 module.exports.places = [
@@ -29,7 +36,9 @@ module.exports.places = [
     'Games',
     'Card Store',
     'Card Shop',
-    'Kingdom'
+    'Kingdom',
+    'Cards & Toys',
+    'Comics & Hobbies'
 ];
 
 module.exports.games = ['magic', 'yugioh', 'pokemon', 'weiss', 'vanguard'];

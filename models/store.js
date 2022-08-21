@@ -3,12 +3,10 @@ const Schema = mongoose.Schema;
 
 const CardStoreSchema = new Schema({
     title: {
-        type: String,
-        required: true
+        type: String
     },
     price: {
         type: Number,
-        required: true,
         min: 0
     },
     cardgame: {
@@ -19,8 +17,7 @@ const CardStoreSchema = new Schema({
         type: String,
     },
     location: {
-        type: String,
-        required: true
+        type: String
     },
     recurrence: {
         type: String,
@@ -28,7 +25,6 @@ const CardStoreSchema = new Schema({
     },
     time: {
         type: Number,
-        required: true,
         min: 800,
         max: 2300
     },
