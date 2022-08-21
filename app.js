@@ -3,6 +3,7 @@ const mongoose = require('mongoose');
 const path = require('path');
 const Store = require('./models/store');
 const {games, recurrence} = require('./seeds/seeds');
+const methodOverride = require('method-override');
 
 mongoose.connect('mongodb://localhost:27017/cardstore');
 
@@ -17,6 +18,7 @@ const app = express();
 app.set('view engine', 'ejs');
 app.set('views', path.join(__dirname, 'views'));
 app.use(express.urlencoded({extended: true}));
+app.use(methodOverride('_method'));
 
 app.get('/', (req, res) => {
     res.render('home');
@@ -40,6 +42,23 @@ app.post('/stores', async(req, res) => {
 app.get('/stores/:id', async (req, res) => {
     const store = await Store.findById(req.params.id);
     res.render('stores/show', {store});
+})
+
+app.get('/stores/:id/edit', async (req, res) => {
+    const store = await Store.findById(req.params.id);
+    res.render('stores/edit', {store, games, recurrence});
+})
+
+app.put('/stores/:id', async (req, res) => {
+    const {id} = req.params;
+    const store = await Store.findByIdAndUpdate(id, {...req.body.store});
+    res.redirect(`/stores/${store._id}`);
+})
+
+app.delete('/stores/:id', async (req, res) => {
+    const {id} = req.params;
+    store = await Store.findByIdAndDelete(id);
+    res.redirect('/stores');
 })
 
 app.listen(3000, () => {
