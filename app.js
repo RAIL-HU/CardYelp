@@ -69,7 +69,7 @@ app.post('/stores', validateStore, catchAsync(async(req, res) => {
 }))
 
 app.get('/stores/:id', catchAsync(async (req, res) => {
-    const store = await Store.findById(req.params.id);
+    const store = await Store.findById(req.params.id).populate('reviews');
     res.render('stores/show', {store});
 }))
 
@@ -97,6 +97,13 @@ app.post('/stores/:id/reviews', catchAsync(async (req, res) => {
     await review.save();
     await store.save();
     res.redirect(`/stores/${store._id}`);
+}))
+
+app.delete('/stores/:id/reviews/:reviewId', catchAsync(async (req, res) => {
+    const {id, reviewId} = req.params;
+    await Store.findByIdAndUpdate(id, {$pull: {reviews: reviewId}});
+    await Review.findByIdAndDelete(reviewId);
+    res.redirect(`/stores/${id}`);
 }))
 
 app.all('*', (req, res, next) => {

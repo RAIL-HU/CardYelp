@@ -1,4 +1,6 @@
 const mongoose = require('mongoose');
+const { storeSchema } = require('../schemas');
+const review = require('./review');
 const Schema = mongoose.Schema;
 
 const CardStoreSchema = new Schema({
@@ -37,6 +39,16 @@ const CardStoreSchema = new Schema({
             ref: 'Review'
         }
     ]
+});
+
+CardStoreSchema.post('findOneAndDelete', async function (doc) {
+    if(doc) {
+        await review.remove({
+            _id: {
+                $in: doc.reviews
+            }
+        });
+    }
 });
 
 module.exports = mongoose.model('CardStore', CardStoreSchema);
