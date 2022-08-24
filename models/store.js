@@ -31,6 +31,12 @@ const CardStoreSchema = new Schema({
         min: 800,
         max: 2300
     },
+    reviews: [
+        {
+            type: Schema.Types.ObjectId,
+            ref: 'Review'
+        }
+    ]
 });
 
 module.exports = mongoose.model('CardStore', CardStoreSchema);

@@ -12,3 +12,11 @@ module.exports.storeSchema = Joi.object({
         time: Joi.number().required().min(800).max(2300)
     }).required()
 });
+
+module.exports.reviewSchema = Joi.object({
+    review: Joi.object({
+        username: Joi.string().required(),
+        rating: Joi.number().min(1).max(5).required(),
+        body: Joi.string().required()
+    })
+})

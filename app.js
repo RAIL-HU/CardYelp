@@ -5,10 +5,11 @@ const Store = require('./models/store');
 const {games, recurrence} = require('./seeds/seeds');
 const methodOverride = require('method-override');
 const ejsMate = require('ejs-mate');
-const { nextTick } = require('process');
+const {nextTick} = require('process');
 const catchAsync = require('./utils/catchAsync');
 const ExpressError = require('./utils/ExpressError');
-const {storeSchema} = require('./schemas.js')
+const {storeSchema, reviewSchema} = require('./schemas.js')
+const Review = require('./models/review');
 
 mongoose.connect('mongodb://localhost:27017/cardstore');
 
@@ -28,6 +29,17 @@ app.use(methodOverride('_method'));
 
 const validateStore = (req, res, next) => {
     const {error} = storeSchema.validate(req.body);
+    if (error) {
+        const msg = error.details.map(el => el.message).join(',');
+        throw new ExpressError(msg, 400);
+    }
+    else {
+        next();
+    }
+}
+
+const validateReview = (req, res, next) => {
+    const {error} = reviewSchema.validate(req.body);
     if (error) {
         const msg = error.details.map(el => el.message).join(',');
         throw new ExpressError(msg, 400);
@@ -76,6 +88,15 @@ app.delete('/stores/:id', catchAsync(async (req, res) => {
     const {id} = req.params;
     store = await Store.findByIdAndDelete(id);
     res.redirect('/stores');
+}))
+
+app.post('/stores/:id/reviews', catchAsync(async (req, res) => {
+    const store = await Store.findById(req.params.id);
+    const review = new Review(req.body.review);
+    store.reviews.push(review);
+    await review.save();
+    await store.save();
+    res.redirect(`/stores/${store._id}`);
 }))
 
 app.all('*', (req, res, next) => {
