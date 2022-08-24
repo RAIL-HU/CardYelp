@@ -8,6 +8,7 @@ const ejsMate = require('ejs-mate');
 const { nextTick } = require('process');
 const catchAsync = require('./utils/catchAsync');
 const ExpressError = require('./utils/ExpressError');
+const {storeSchema} = require('./schemas.js')
 
 mongoose.connect('mongodb://localhost:27017/cardstore');
 
@@ -25,8 +26,19 @@ app.set('views', path.join(__dirname, 'views'));
 app.use(express.urlencoded({extended: true}));
 app.use(methodOverride('_method'));
 
+const validateStore = (req, res, next) => {
+    const {error} = storeSchema.validate(req.body);
+    if (error) {
+        const msg = error.details.map(el => el.message).join(',');
+        throw new ExpressError(msg, 400);
+    }
+    else {
+        next();
+    }
+}
+
 app.get('/', (req, res) => {
-    res.render('home');
+    res.redirect('/stores');
 })
 
 app.get('/stores',catchAsync(async (req, res) => {
@@ -34,11 +46,11 @@ app.get('/stores',catchAsync(async (req, res) => {
     res.render('stores/index', {stores});
 }))
 
-app.get('/stores/new', async (req, res) => {
+app.get('/stores/new', (req, res) => {
     res.render('stores/new', {games, recurrence});
 })
 
-app.post('/stores', catchAsync(async(req, res) => {
+app.post('/stores', validateStore, catchAsync(async(req, res) => {
     const store = new Store(req.body.store)
     await store.save();
     res.redirect(`/stores/${store._id}`);
@@ -54,7 +66,7 @@ app.get('/stores/:id/edit', catchAsync(async (req, res) => {
     res.render('stores/edit', {store, games, recurrence});
 }))
 
-app.put('/stores/:id', catchAsync(async (req, res) => {
+app.put('/stores/:id', validateStore, catchAsync(async (req, res) => {
     const {id} = req.params;
     const store = await Store.findByIdAndUpdate(id, {...req.body.store});
     res.redirect(`/stores/${store._id}`);
