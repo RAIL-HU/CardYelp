@@ -4,6 +4,8 @@ const path = require('path');
 const methodOverride = require('method-override');
 const ejsMate = require('ejs-mate');
 const ExpressError = require('./utils/ExpressError');
+const session = require('express-session');
+const flash = require('connect-flash');
 
 const stores = require('./routes/stores');
 const reviews = require('./routes/reviews')
@@ -23,12 +25,32 @@ app.set('view engine', 'ejs');
 app.set('views', path.join(__dirname, 'views'));
 app.use(express.urlencoded({extended: true}));
 app.use(methodOverride('_method'));
+app.use(express.static(path.join(__dirname, 'public')));
+
+const sessionConfig = {
+    secret: 'thisisasecret',
+    resave: false,
+    saveUninitialized: true,
+    cookie: {
+        httpOnly: true,
+        expires: Date.now() + 86400000 * 3,
+        maxAge: 86400000 * 3
+    }
+};
+app.use(session(sessionConfig));
+app.use(flash());
+
+app.use((req, res, next) => {
+    res.locals.success = req.flash('success');
+    res.locals.error = req.flash('error');
+    next();
+})
 
 app.use("/stores", stores);
 app.use("/stores/:id/reviews", reviews)
 
 app.get('/', (req, res) => {
-    res.render('/home');
+    res.render('home');
 })
 
 app.all('*', (req, res, next) => {
@@ -36,8 +58,9 @@ app.all('*', (req, res, next) => {
 })
 
 app.use((err, req, res, next) => {
-    const {statusCode = 500, message = "Server Internal Error"} = err;
-    res.status(statusCode).render('error', {err});
+    const { statusCode = 500 } = err;	
+    if (!err.message) err.message = 'Error!'	
+    res.status(statusCode).render('error', { err })
 })
 
 app.listen(3000, () => {

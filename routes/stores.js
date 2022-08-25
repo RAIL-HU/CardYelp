@@ -26,31 +26,42 @@ router.get('/new', (req, res) => {
     res.render('stores/new', {games, recurrence});
 })
 
-router.post('/', validateStore, catchAsync(async(req, res) => {
-    const store = new Store(req.body.store)
+router.post('/', validateStore, catchAsync(async(req, res, next) => {
+    const store = new Store(req.body.store);
     await store.save();
+    req.flash('success', 'Successfully added a new store!');
     res.redirect(`/stores/${store._id}`);
 }))
 
-router.get('/:id', catchAsync(async (req, res) => {
+router.get('/:id', catchAsync(async (req, res,) => {
     const store = await Store.findById(req.params.id).populate('reviews');
+    if(!store){
+        req.flash('error', 'Error: Store Not Found!')
+        return res.redirect('/stores');
+    }
     res.render('stores/show', {store});
 }))
 
 router.get('/:id/edit', catchAsync(async (req, res) => {
     const store = await Store.findById(req.params.id);
+    if(!store){
+        req.flash('error', 'Error: Store Not Found!')
+        return res.redirect('/stores');
+    }
     res.render('stores/edit', {store, games, recurrence});
 }))
 
 router.put('/:id', validateStore, catchAsync(async (req, res) => {
     const {id} = req.params;
     const store = await Store.findByIdAndUpdate(id, {...req.body.store});
+    req.flash('success', 'Successfully updated the store!');
     res.redirect(`/stores/${store._id}`);
 }))
 
 router.delete('/:id', catchAsync(async (req, res) => {
     const {id} = req.params;
     store = await Store.findByIdAndDelete(id);
+    req.flash('success', 'Successfully deleted the store!');
     res.redirect('/stores');
 }))
 
