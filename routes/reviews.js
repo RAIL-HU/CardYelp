@@ -6,6 +6,7 @@ const {reviewSchema} = require('../schemas.js')
 const ExpressError = require('../utils/ExpressError');
 const Store = require('../models/store');
 const Review = require('../models/review');
+const {isLoggedIn} = require('../middleware');
 
 const validateReview = (req, res, next) => {
     const {error} = reviewSchema.validate(req.body);
@@ -18,7 +19,7 @@ const validateReview = (req, res, next) => {
     }
 }
 
-router.post('/', catchAsync(async (req, res) => {
+router.post('/', isLoggedIn, catchAsync(async (req, res) => {
     const store = await Store.findById(req.params.id);
     const review = new Review(req.body.review);
     store.reviews.push(review);
