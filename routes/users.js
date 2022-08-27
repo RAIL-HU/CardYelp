@@ -19,7 +19,7 @@ router.post('/register', catchAsync(async (req, res) => {
         req.flash('error', e.message);
         res.redirect('register');
     }
-}));
+}))
 
 router.get('/login', (req, res) => {
     res.render('users/login');
@@ -28,6 +28,14 @@ router.get('/login', (req, res) => {
 router.post('/login', passport.authenticate('local', {failureFlash: true, failureRedirect: '/login'}), (req, res) => {
     req.flash('success', 'Login was successful!');
     res.redirect('/stores');
+})
+
+router.get('/logout', (req, res, next) => {
+    req.logout(function(err) {
+        if (err) { return next(err); }
+        req.flash('success', 'Successfully logged you out!');
+        res.redirect('/stores');
+    });
 })
 
 module.exports = router;

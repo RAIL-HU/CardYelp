@@ -5,6 +5,7 @@ const {games, recurrence} = require('../seeds/seeds');
 const {storeSchema} = require('../schemas.js')
 const ExpressError = require('../utils/ExpressError');
 const Store = require('../models/store');
+const {isLoggedIn} = require('../middleware');
 
 const validateStore = (req, res, next) => {
     const {error} = storeSchema.validate(req.body);
@@ -22,11 +23,11 @@ router.get('/',catchAsync(async (req, res) => {
     res.render('stores/index', {stores});
 }))
 
-router.get('/new', (req, res) => {
+router.get('/new', isLoggedIn, (req, res) => {
     res.render('stores/new', {games, recurrence});
 })
 
-router.post('/', validateStore, catchAsync(async(req, res, next) => {
+router.post('/', isLoggedIn, validateStore, catchAsync(async(req, res, next) => {
     const store = new Store(req.body.store);
     await store.save();
     req.flash('success', 'Successfully added a new store!');
