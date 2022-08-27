@@ -13,12 +13,14 @@
                 <li class="list-group-item">Description/Note: <%= store.description %></li>
                 <li class="list-group-item">Recurrence: <%= store.recurrence.charAt(0).toUpperCase() + store.recurrence.slice(1) %> <%= store.time / 100 %>: 00 (Local Time)</li>
             </ul>
+            <% if(currentUser && store.author.equals(currentUser._id)) { %>
             <div class="card-body">
                 <a href="/stores/<%= store._id %>/edit" class="card-link btn btn-primary">Edit</a>
                 <form class="d-inline" action="/stores/<%= store._id %>?_method=DELETE" method="POST">
                     <button class="btn btn-danger">Delete</button>
                 </form>
             </div>
+            <% } %>
             <div class="card-footer text-muted">
                 <a href="/stores">All Card Stores</a>
             </div>
@@ -27,30 +29,36 @@
 
     <div class="col-6">
         <h3 class="text-center">Reviews For <%= store.title %></h3>
+        <% let counter = 0; %>
+        
         <% for(let review of store.reviews) { %>
             <div class="card mb-3">
                 <div class="card-body">
-                    <h6 class="card-text">Posted by: <%= review.username %></h6>
+                    <h6 class="card-text">Posted by: <%= review.author.username %></h6>
                     <h5 class="card-title">Rating: <%= review.rating %></h5>
                     <p class="card-text">Review: <%= review.body %></p>
+                    <% if(currentUser && review.author.equals(currentUser._id)) { %>
                     <form action="/stores/<%= store._id %>/reviews/<%= review._id %>?_method=DELETE" method="POST">
                         <button class="btn btn-sm btn-danger">Delete</button>
                     </form>
+                    <% } %>
+                </div>
+            </div>
+            <% counter++; %>
+        <% } %>
+        <% if(counter === 0) { %>
+            <div class="card mb-3">
+                <div class="card-body">
+                    <h6 class="card-text">Be the first to leave a review!</h6>
                 </div>
             </div>
         <% } %>
+        <% counter = 0; %>
 
         <hr>
+        <% if(currentUser) { %>
         <h3 class="text-center">Leave A Review</h3>
         <form action="/stores/<%= store._id %>/reviews" method="POST" class="mb-3 validated-form" novalidate>
-            <div class="mb-3">
-                <label class="form-label" for="username">Your Name: </label>
-                <input class="form-control" type="text" id="username" name="review[username]" required>
-                <div class="valid-feedback">
-                    Looks good!
-                </div>
-            </div>
-
             <div class="mb-3">
                 <label class="form-label" for="rating">Rating (1-5): </label>
                 <input class="form-range" type="range" min="1" max="5" id="rating" name="review[rating]">
@@ -69,5 +77,8 @@
 
             <button class="btn btn-success">Submit</button>
         </form>
+        <% } else { %>
+        <h4 class="text-center">Please log in before leaving a review.</h4>
+        <% } %>
     </div>
 </div>

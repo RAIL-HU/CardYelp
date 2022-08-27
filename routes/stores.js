@@ -2,21 +2,8 @@ const express = require('express');
 const router = express.Router();
 const catchAsync = require('../utils/catchAsync');
 const {games, recurrence} = require('../seeds/seeds');
-const {storeSchema} = require('../schemas.js')
-const ExpressError = require('../utils/ExpressError');
 const Store = require('../models/store');
-const {isLoggedIn} = require('../middleware');
-
-const validateStore = (req, res, next) => {
-    const {error} = storeSchema.validate(req.body);
-    if (error) {
-        const msg = error.details.map(el => el.message).join(',');
-        throw new ExpressError(msg, 400);
-    }
-    else {
-        next();
-    }
-}
+const {isLoggedIn, validateStore, isStoreAuthor} = require('../middleware');
 
 router.get('/',catchAsync(async (req, res) => {
     const stores = await Store.find({});
@@ -36,7 +23,12 @@ router.post('/', isLoggedIn, validateStore, catchAsync(async(req, res, next) => 
 }))
 
 router.get('/:id', catchAsync(async (req, res,) => {
-    const store = await Store.findById(req.params.id).populate('reviews').populate('author');
+    const store = await Store.findById(req.params.id).populate({
+        path: 'reviews',
+        populate: {
+            path: 'author'
+        }
+    }).populate('author');
     if(!store){
         req.flash('error', 'Error: Store Not Found!')
         return res.redirect('/stores');
@@ -44,7 +36,7 @@ router.get('/:id', catchAsync(async (req, res,) => {
     res.render('stores/show', {store});
 }))
 
-router.get('/:id/edit', catchAsync(async (req, res) => {
+router.get('/:id/edit', isLoggedIn, isStoreAuthor, catchAsync(async (req, res) => {
     const store = await Store.findById(req.params.id);
     if(!store){
         req.flash('error', 'Error: Store Not Found!')
@@ -53,14 +45,14 @@ router.get('/:id/edit', catchAsync(async (req, res) => {
     res.render('stores/edit', {store, games, recurrence});
 }))
 
-router.put('/:id', validateStore, catchAsync(async (req, res) => {
+router.put('/:id', isLoggedIn, isStoreAuthor, validateStore, catchAsync(async (req, res) => {
     const {id} = req.params;
     const store = await Store.findByIdAndUpdate(id, {...req.body.store});
     req.flash('success', 'Successfully updated the store!');
     res.redirect(`/stores/${store._id}`);
 }))
 
-router.delete('/:id', catchAsync(async (req, res) => {
+router.delete('/:id', isLoggedIn, isStoreAuthor, catchAsync(async (req, res) => {
     const {id} = req.params;
     store = await Store.findByIdAndDelete(id);
     req.flash('success', 'Successfully deleted the store!');

@@ -15,8 +15,7 @@ module.exports.storeSchema = Joi.object({
 
 module.exports.reviewSchema = Joi.object({
     review: Joi.object({
-        username: Joi.string().required(),
-        rating: Joi.number().min(1).max(5).required(),
+        rating: Joi.number().min(1).max(5),
         body: Joi.string().required()
     }).required()
 })

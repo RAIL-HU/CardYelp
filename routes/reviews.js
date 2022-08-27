@@ -6,22 +6,12 @@ const {reviewSchema} = require('../schemas.js')
 const ExpressError = require('../utils/ExpressError');
 const Store = require('../models/store');
 const Review = require('../models/review');
-const {isLoggedIn} = require('../middleware');
+const {isLoggedIn, validateReview, isReviewAuthor} = require('../middleware');
 
-const validateReview = (req, res, next) => {
-    const {error} = reviewSchema.validate(req.body);
-    if (error) {
-        const msg = error.details.map(el => el.message).join(',');
-        throw new ExpressError(msg, 400);
-    }
-    else {
-        next();
-    }
-}
-
-router.post('/', isLoggedIn, catchAsync(async (req, res) => {
+router.post('/', isLoggedIn, validateReview, catchAsync(async (req, res) => {
     const store = await Store.findById(req.params.id);
     const review = new Review(req.body.review);
+    review.author = req.user._id;
     store.reviews.push(review);
     await review.save();
     await store.save();
@@ -29,7 +19,7 @@ router.post('/', isLoggedIn, catchAsync(async (req, res) => {
     res.redirect(`/stores/${store._id}`);
 }))
 
-router.delete('/:reviewId', catchAsync(async (req, res) => {
+router.delete('/:reviewId', isLoggedIn, isReviewAuthor, catchAsync(async (req, res) => {
     const {id, reviewId} = req.params;
     await Store.findByIdAndUpdate(id, {$pull: {reviews: reviewId}});
     await Review.findByIdAndDelete(reviewId);
