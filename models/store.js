@@ -33,6 +33,10 @@ const CardStoreSchema = new Schema({
         min: 800,
         max: 2300
     },
+    author: {
+        type: Schema.Types.ObjectId,
+        ref: 'User'
+    },
     reviews: [
         {
             type: Schema.Types.ObjectId,

@@ -29,13 +29,14 @@ router.get('/new', isLoggedIn, (req, res) => {
 
 router.post('/', isLoggedIn, validateStore, catchAsync(async(req, res, next) => {
     const store = new Store(req.body.store);
+    store.author = req.user._id;
     await store.save();
     req.flash('success', 'Successfully added a new store!');
     res.redirect(`/stores/${store._id}`);
 }))
 
 router.get('/:id', catchAsync(async (req, res,) => {
-    const store = await Store.findById(req.params.id).populate('reviews');
+    const store = await Store.findById(req.params.id).populate('reviews').populate('author');
     if(!store){
         req.flash('error', 'Error: Store Not Found!')
         return res.redirect('/stores');

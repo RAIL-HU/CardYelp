@@ -26,7 +26,8 @@ const seedDB = async () => {
             description: 'Lorem ipsum dolor sit, amet consectetur adipisicing elit. Cum quasi ipsum id ratione possimus corrupti, aliquid quae labore distinctio minus velit optio maiores neque saepe. Voluptatum ut iusto optio mollitia.',
             location: `${cities[random1000].city}, ${cities[random1000].state}`,
             recurrence: recurrence[Math.floor(Math.random() * 7)],
-            time: (Math.floor(Math.random() * 15) + 8) * 100
+            time: (Math.floor(Math.random() * 15) + 8) * 100,
+            author: '630951b08ce9b9be80af0398'
         })
         await store.save();
     }
