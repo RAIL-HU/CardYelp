@@ -5,6 +5,8 @@ const {games, recurrence} = require('../seeds/seeds');
 const Store = require('../models/store');
 const {isLoggedIn, validateStore, isStoreAuthor} = require('../middleware');
 const stores = require('../controllers/stores');
+const multer = require('multer');
+const upload = multer({dest: 'uploads/'});
 
 router.route('/')
     .get(catchAsync(stores.index))

@@ -2,13 +2,14 @@
 <div class="row">
     <h1 class="text-center">Add A New Store</h1>
     <div class="col-6 offset-3">
-        <form action="/stores" method="POST" novalidate class="validated-form">
+        <form action="/stores" method="POST" novalidate class="validated-form" enctype="multipart/form-data">
             <div class="mb-3">
-                <label class="form-label" for="image">Image URL: </label>
-                <input class="form-control" type="text" id="image" name="store[image]" required>
+                <label class="form-label" for="image">Image: </label>
+                <!-- <input class="form-control" type="text" id="image" name="store[image]" required>
                 <div class="valid-feedback">
                     Looks good!
-                </div>
+                </div> -->
+                <input type="file", name="store[image]" id="image">
             </div>
 
             <div class="mb-3">
