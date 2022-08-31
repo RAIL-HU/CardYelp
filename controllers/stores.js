@@ -1,6 +1,9 @@
 const Store = require('../models/store');
 const {games, recurrence} = require('../seeds/seeds');
 const {cloudinary} = require('../cloudinary');
+const mbxGeocoding = require('@mapbox/mapbox-sdk/services/geocoding')
+const mbxToken = process.env.MAPBOX_TOKEN;
+const geocoder = mbxGeocoding({accessToken: mbxToken});
 
 module.exports.index = async (req, res) => {
     const stores = await Store.find({});
@@ -12,7 +15,12 @@ module.exports.renderNewForm = (req, res) => {
 }
 
 module.exports.createStore = async (req, res, next) => {
+    const geoData = await geocoder.forwardGeocode({
+        query: req.body.store.location,
+        limit: 1
+    }).send();
     const store = new Store(req.body.store);
+    store.geometry = geoData.body.features[0].geometry;
     store.image = req.files.map(f => ({url: f.path, filename: f.filename}));
     store.author = req.user._id;
     await store.save();
