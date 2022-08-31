@@ -21,8 +21,8 @@ const seedDB = async () => {
         const store = new Store({
             image: [
                 {
-                    url: 'https://res.cloudinary.com/hky/image/upload/v1661909309/CardStores/faaizi02ci4yusctu60r.png',
-                    filename: 'CardStores/faaizi02ci4yusctu60r'
+                    url: 'https://res.cloudinary.com/hky/image/upload/v1661979668/CardStores/hobbyshop_ahe0ni.png',
+                    filename: 'CardStores/hobbyshop_ahe0ni'
                 },
                 {
                     url: 'https://res.cloudinary.com/hky/image/upload/v1661909310/CardStores/vtzuffiwbzc2qjhdtsod.png',
@@ -40,7 +40,11 @@ const seedDB = async () => {
             location: `${cities[random1000].city}, ${cities[random1000].state}`,
             recurrence: recurrence[Math.floor(Math.random() * 7)],
             time: (Math.floor(Math.random() * 15) + 8) * 100,
-            author: '630951b08ce9b9be80af0398'
+            author: '630951b08ce9b9be80af0398',
+            geometry: {
+                type: "Point",
+                coordinates: [-113.1331, 47.0202]
+            }
         })
         await store.save();
     }

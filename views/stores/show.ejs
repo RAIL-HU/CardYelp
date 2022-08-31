@@ -43,13 +43,18 @@
             <div class="card-footer text-muted">
                 <a href="/stores">All Card Stores</a>
             </div>
-        </div>   
+        </div>
     </div>
 
     <div class="col-6">
-        <h3 class="text-center">Reviews For <%= store.title %></h3>
+        <div class="mb-3">
+            <h3 class="text-center">Find <%= store.title %> on the Map</h3>
+            <div id="map" style="width: 100%; height: 300px;"></div>
+        </div>
+        <div class="mb-3">
+            <h3 class="text-center">Reviews For <%= store.title %></h3>
+        </div>
         <% let counter = 0; %>
-        
         <% for(let review of store.reviews) { %>
             <div class="card mb-3">
                 <div class="card-body">
@@ -113,3 +118,9 @@
         <% } %>
     </div>
 </div>
+
+<script>
+    const mapToken = '<%- process.env.MAPBOX_TOKEN %>';
+    const store = <%- JSON.stringify(store) %>;
+</script>
+<script src="/js/showPageMap.js"></script>
