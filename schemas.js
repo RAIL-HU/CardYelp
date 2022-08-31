@@ -2,7 +2,7 @@ const Joi = require('joi');
 
 module.exports.storeSchema = Joi.object({
     store: Joi.object({
-        image: Joi.string().required(),
+        // image: Joi.string().required(),
         title: Joi.string().required(),
         price: Joi.number().required().min(0),
         cardgame: Joi.string().required(),

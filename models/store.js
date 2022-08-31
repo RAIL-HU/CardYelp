@@ -4,9 +4,10 @@ const review = require('./review');
 const Schema = mongoose.Schema;
 
 const CardStoreSchema = new Schema({
-    image: {
-        type: String
-    },
+    image: [{
+        url: String,
+        filename: String
+    }],
     title: {
         type: String
     },

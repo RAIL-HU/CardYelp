@@ -19,7 +19,20 @@ const seedDB = async () => {
     for (let i = 0; i < 50; i++) {
         const random1000 = Math.floor(Math.random() * 1000);
         const store = new Store({
-            image: 'https://source.unsplash.com/random/600×800/?shop',
+            image: [
+                {
+                    url: 'https://res.cloudinary.com/hky/image/upload/v1661909309/CardStores/faaizi02ci4yusctu60r.png',
+                    filename: 'CardStores/faaizi02ci4yusctu60r'
+                },
+                {
+                    url: 'https://res.cloudinary.com/hky/image/upload/v1661909310/CardStores/vtzuffiwbzc2qjhdtsod.png',
+                    filename: 'CardStores/vtzuffiwbzc2qjhdtsod'
+                },
+                {
+                    url: 'https://res.cloudinary.com/hky/image/upload/v1661907787/CardStores/WE35_E28SP_qpaatj.png',
+                    filename: 'CardStores/WE35_E28SP_qpaatj'
+                }
+            ],
             title: `${sample(descriptors)} ${sample(places)}`,
             price: Math.ceil(Math.random() * 20),
             cardgame: games[Math.floor(Math.random() * 5)],

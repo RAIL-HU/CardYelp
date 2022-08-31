@@ -4,12 +4,17 @@
     <div class="col-6 offset-3">
         <form action="/stores" method="POST" novalidate class="validated-form" enctype="multipart/form-data">
             <div class="mb-3">
-                <label class="form-label" for="image">Image: </label>
-                <!-- <input class="form-control" type="text" id="image" name="store[image]" required>
+                <label class="form-label" for="image">Images (.jpeg/.jpg/.png ONLY): </label>
+                <div class="form-file custom-file">
+                    <input type="file" class="form-file-input" id="image" name="store[image]" multiple>
+                    <label class="form-file-label" for="image">
+                        <span class="form-file-text custom-file-label">Choose image(s)...</span>
+                        <span class="form-file-button">Browse</span>
+                    </label>
+                </div>
                 <div class="valid-feedback">
                     Looks good!
-                </div> -->
-                <input type="file", name="store[image]" id="image">
+                </div>
             </div>
 
             <div class="mb-3">

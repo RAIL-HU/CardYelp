@@ -12,6 +12,7 @@ module.exports.renderNewForm = (req, res) => {
 
 module.exports.createStore = async (req, res, next) => {
     const store = new Store(req.body.store);
+    store.image = req.files.map(f => ({url: f.path, filename: f.filename}));
     store.author = req.user._id;
     await store.save();
     req.flash('success', 'Successfully made a new store!');
@@ -44,7 +45,10 @@ module.exports.renderEditForm = async (req, res) => {
 
 module.exports.updateStore = async (req, res) => {
     const { id } = req.params;
-    const store = await Store.findByIdAndUpdate(id, { ...req.body.store });
+    const store = await Store.findByIdAndUpdate(id, {...req.body.store});
+    const imgs = req.files.map(f => ({url: f.path, filename: f.filename}));
+    store.image.push(...imgs);
+    await store.save();
     req.flash('success', 'Successfully updated store!');
     res.redirect(`/stores/${store._id}`)
 }
