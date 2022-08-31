@@ -10,7 +10,8 @@ module.exports.storeSchema = Joi.object({
         location: Joi.string().required(),
         recurrence: Joi.string().required(),
         time: Joi.number().required().min(800).max(2300)
-    }).required()
+    }).required(),
+    deleteImages: Joi.array()
 });
 
 module.exports.reviewSchema = Joi.object({

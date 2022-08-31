@@ -3,11 +3,17 @@ const { storeSchema } = require('../schemas');
 const review = require('./review');
 const Schema = mongoose.Schema;
 
+const ImageSchema = new Schema({
+    url: String,
+    filename: String
+});
+
+ImageSchema.virtual('thumbnail').get(function () {
+    return this.url.replace('/upload', '/upload/w_200');
+});
+
 const CardStoreSchema = new Schema({
-    image: [{
-        url: String,
-        filename: String
-    }],
+    image: [ImageSchema],
     title: {
         type: String
     },
@@ -44,6 +50,10 @@ const CardStoreSchema = new Schema({
             ref: 'Review'
         }
     ]
+});
+
+CardStoreSchema.virtual('properties.popUpMarkup').get(function () {
+    return `<strong><a href="/campgrounds/${this._id}">${this.title}</a><strong><p>${this.description.substring(0, 20)}...</p>`;
 });
 
 CardStoreSchema.post('findOneAndDelete', async function (doc) {

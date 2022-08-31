@@ -1,5 +1,6 @@
 const Store = require('../models/store');
 const {games, recurrence} = require('../seeds/seeds');
+const {cloudinary} = require('../cloudinary');
 
 module.exports.index = async (req, res) => {
     const stores = await Store.find({});
@@ -49,6 +50,12 @@ module.exports.updateStore = async (req, res) => {
     const imgs = req.files.map(f => ({url: f.path, filename: f.filename}));
     store.image.push(...imgs);
     await store.save();
+    if(req.body.deleteImages) {
+        for(let filename of req.body.deleteImages) {
+            await cloudinary.uploader.destroy(filename);
+        }
+        await store.updateOne({$pull: {image: {filename: {$in: req.body.deleteImages}}}});
+    }
     req.flash('success', 'Successfully updated store!');
     res.redirect(`/stores/${store._id}`)
 }
