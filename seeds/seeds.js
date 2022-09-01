@@ -41,7 +41,16 @@ module.exports.descriptors = [
     'Saaya',
     'Dinosaur',
     'Tokyo',
-    'Osaka'
+    'Osaka',
+    'Japan',
+    'Underground',
+    'Black',
+    'Green',
+    'Blue',
+    'Purple',
+    'Orange',
+    'White',
+    'Red'
 ];
 
 module.exports.places = [
@@ -57,7 +66,9 @@ module.exports.places = [
     'Comics & Hobbies',
     'Card Cafe',
     'Playground',
-    "Collectors' Home"
+    "Collectors' Home",
+    'Circle',
+    'Castle'
 ];
 
 module.exports.games = ['magic', 'yugioh', 'pokemon', 'weiss', 'vanguard'];

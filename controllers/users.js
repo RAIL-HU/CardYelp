@@ -39,5 +39,5 @@ module.exports.login = (req, res) => {
 module.exports.logout = (req, res) => {
     req.logout(catchAsync);
     req.flash('success', 'Successfully logged you out!');
-    res.redirect('/stores');
+    res.redirect('/');
 };

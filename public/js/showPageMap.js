@@ -1,13 +1,13 @@
 mapboxgl.accessToken = mapToken;
-    const map = new mapboxgl.Map({
-        container: 'map',
-        style: 'mapbox://styles/mapbox/streets-v11',
-        center: store.geometry.coordinates,
-        zoom: 10,
-        projection: 'globe'
-    });
+const map = new mapboxgl.Map({
+    container: 'map',
+    style: 'mapbox://styles/mapbox/streets-v11',
+    center: store.geometry.coordinates,
+    zoom: 10,
+    projection: 'globe'
+});
     
-    map.on('style.load', () => {
+map.on('style.load', () => {
     map.setFog({}); // Set the default atmosphere style
 });
 
@@ -20,3 +20,5 @@ new mapboxgl.Marker()
             )
     )
     .addTo(map);
+
+map.addControl(new mapboxgl.NavigationControl());

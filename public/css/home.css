@@ -1,0 +1,15 @@
+body {
+    background-image: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)),
+    url("https://res.cloudinary.com/hky/image/upload/v1661993010/CardStores/photo-1557821552-17105176677c_dacljb.jpg");
+    background-size: cover;
+    background-position: center;
+    color: white;
+}
+
+.btn-secondary{
+    color: #333;
+}
+
+.btn-secondary:hover{
+    color: rgb(128, 114, 114);
+}

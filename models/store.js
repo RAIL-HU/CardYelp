@@ -3,6 +3,8 @@ const { storeSchema } = require('../schemas');
 const review = require('./review');
 const Schema = mongoose.Schema;
 
+const opts = {toJSON: {virtuals: true}};
+
 const ImageSchema = new Schema({
     url: String,
     filename: String
@@ -61,10 +63,10 @@ const CardStoreSchema = new Schema({
             required: true
         }
     }
-});
+}, opts);
 
 CardStoreSchema.virtual('properties.popUpMarkup').get(function () {
-    return `<strong><a href="/campgrounds/${this._id}">${this.title}</a><strong><p>${this.description.substring(0, 20)}...</p>`;
+    return `<strong><a href="/campgrounds/${this._id}">${this.title}</a><strong><p>${this.location}</p>`;
 });
 
 CardStoreSchema.post('findOneAndDelete', async function (doc) {

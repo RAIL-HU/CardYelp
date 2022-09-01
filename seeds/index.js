@@ -16,21 +16,17 @@ const sample = array => array[Math.floor(Math.random() * array.length)];
 
 const seedDB = async () => {
     await Store.deleteMany({});
-    for (let i = 0; i < 50; i++) {
+    for (let i = 0; i < 200; i++) {
         const random1000 = Math.floor(Math.random() * 1000);
         const store = new Store({
             image: [
                 {
+                    url: 'https://res.cloudinary.com/hky/image/upload/v1661992098/CardStores/photo-1493857671505-72967e2e2760_us3las.jpg',
+                    filename: 'CardStores/photo-1493857671505-72967e2e2760_us3las'
+                },
+                {
                     url: 'https://res.cloudinary.com/hky/image/upload/v1661979668/CardStores/hobbyshop_ahe0ni.png',
                     filename: 'CardStores/hobbyshop_ahe0ni'
-                },
-                {
-                    url: 'https://res.cloudinary.com/hky/image/upload/v1661909310/CardStores/vtzuffiwbzc2qjhdtsod.png',
-                    filename: 'CardStores/vtzuffiwbzc2qjhdtsod'
-                },
-                {
-                    url: 'https://res.cloudinary.com/hky/image/upload/v1661907787/CardStores/WE35_E28SP_qpaatj.png',
-                    filename: 'CardStores/WE35_E28SP_qpaatj'
                 }
             ],
             title: `${sample(descriptors)} ${sample(places)}`,
@@ -43,7 +39,7 @@ const seedDB = async () => {
             author: '630951b08ce9b9be80af0398',
             geometry: {
                 type: "Point",
-                coordinates: [-113.1331, 47.0202]
+                coordinates: [cities[random1000].longitude, cities[random1000].latitude]
             }
         })
         await store.save();
