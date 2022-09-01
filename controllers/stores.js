@@ -53,10 +53,15 @@ module.exports.renderEditForm = async (req, res) => {
 }
 
 module.exports.updateStore = async (req, res) => {
+    const geoData = await geocoder.forwardGeocode({
+        query: req.body.store.location,
+        limit: 1
+    }).send();
     const { id } = req.params;
     const store = await Store.findByIdAndUpdate(id, {...req.body.store});
     const imgs = req.files.map(f => ({url: f.path, filename: f.filename}));
     store.image.push(...imgs);
+    store.geometry = geoData.body.features[0].geometry;
     await store.save();
     if(req.body.deleteImages) {
         for(let filename of req.body.deleteImages) {

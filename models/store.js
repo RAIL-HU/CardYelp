@@ -66,7 +66,7 @@ const CardStoreSchema = new Schema({
 }, opts);
 
 CardStoreSchema.virtual('properties.popUpMarkup').get(function () {
-    return `<strong><a href="/campgrounds/${this._id}">${this.title}</a><strong><p>${this.location}</p>`;
+    return `<strong><a href="/stores/${this._id}">${this.title}</a><strong><p>${this.location}</p>`;
 });
 
 CardStoreSchema.post('findOneAndDelete', async function (doc) {
