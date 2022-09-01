@@ -4,11 +4,13 @@
     <div class="col-6 offset-3">
         <div class="alert alert-danger" role="alert">
             <h4 class="alert-heading">ERROR!!!</h4>
-            <p>Problem: <%= err.message %></p>
+            <p>Error Message: <%= err.message %></p>
+            <% if (process.env.NODE_ENV !== "production") { %>
+                <p><%= err.stack %></p>
+            <% } %>
             <p class="mb-0">Please check your submission and try again.</p>
-            <p><% err.stack %></p>
         </div>
     </div>
 </div>
 
-<footer><a href="/stores">All Card Stores</a></footer>
+<footer><a class="btn btn-info" href="/stores">All Card Stores</a></footer>
