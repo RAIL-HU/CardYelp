@@ -19,8 +19,10 @@ const mongoSanitize = require('express-mongo-sanitize');
 const helmet = require('helmet');
 
 const User = require('./models/user');
+const dbUrl = process.env.DB_URL;
+const devUrl = 'mongodb://localhost:27017/cardstore';
 
-mongoose.connect('mongodb://localhost:27017/cardstore');
+mongoose.connect(devUrl);
 
 const db = mongoose.connection;
 db.on("error", console.error.bind(console, "connection error:"));
