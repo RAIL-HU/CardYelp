@@ -80,8 +80,14 @@
                     </div>
             
                     <div class="mb-3">
-                        <label class="form-label" for="time">Start Time: </label>
-                        <input class="form-control" type="number" id="time" name="store[time]" placeholder="24 Hours & Number Only, ex. 1300 for 1pm" required>
+                        <label class="form-label" for="time">Start Time (in 24 Hours): </label>
+                        <!-- <input class="form-control" type="number" id="time" name="store[time]" placeholder="24 Hours & Number Only, ex. 1300 for 1pm" required> -->
+                        <select class="form-control" type="number" id="time" name="store[time]">
+                            <% for (var i=8; i<=23; i++){ %>
+                                <option value=<%= i * 100 %>><%= i %>: 00</option>
+                                <option value=<%= i * 100 + 30 %>><%= i %>: 30</option>
+                            <% } %>
+                        </select>
                         <div class="valid-feedback">
                             Looks good!
                         </div>
