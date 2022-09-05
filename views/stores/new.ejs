@@ -68,7 +68,7 @@
                     </div>
             
                     <div class="mb-3">
-                        <label class="form-label" for="recurrence">Tournament On: </label>
+                        <label class="form-label" for="recurrence">Tournament On Every: </label>
                         <select class="form-control" id="recurrence" name="store[recurrence]">
                             <% for (let r of recurrence){ %>
                                 <option value="<%= r %>"><%= r.charAt(0).toUpperCase() + r.slice(1) %></option>
@@ -81,7 +81,6 @@
             
                     <div class="mb-3">
                         <label class="form-label" for="time">Start Time (in 24 Hours): </label>
-                        <!-- <input class="form-control" type="number" id="time" name="store[time]" placeholder="24 Hours & Number Only, ex. 1300 for 1pm" required> -->
                         <select class="form-control" type="number" id="time" name="store[time]">
                             <% for (var i=8; i<=23; i++){ %>
                                 <option value=<%= i * 100 %>><%= i %>: 00</option>

@@ -7,6 +7,19 @@
                 <h2 class="card-title">EDIT STORE</h2>
                 <form action="/stores/<%= store._id %>?_method=PUT" method="POST" novalidate class="validated-form" enctype="multipart/form-data">
                     <div class="mb-3">
+                        <label class="form-label" for="deleteImage">Delete Images: </label>
+                        <% store.image.forEach(function(img, i) { %>
+                        <div>
+                            <img src="<%= img.thumbnail %>" class="img-thumbnail" alt="">
+                        </div>
+                        <div class="form-check-inline">
+                            <input type="checkbox" id="image-<%= i %>" name="deleteImages[]" value="<%= img.filename %>">
+                        </div>
+                        <label for="image-<%=i%>">Delete This Image</label>
+                        <% }) %>
+                    </div>
+                    
+                    <div class="mb-3">
                         <label class="form-label" for="image">Add New Images (.jpeg/.jpg/.png ONLY): </label>
                         <div class="form-file custom-file">
                             <input type="file" class="form-file-input" id="image" name="store[image]" multiple>
@@ -43,7 +56,7 @@
                         <label class="form-label" for="cardgame">Card Game: </label>
                         <select class="form-control" id="cardgame" name="store[cardgame]">
                             <% for (let game of games){ %>
-                                <option value="<%= game %>"><%= game.charAt(0).toUpperCase() + game.slice(1) %></option>
+                                <option value="<%= game %>" <%= store.cardgame === game ? 'selected' : '' %>><%= game.charAt(0).toUpperCase() + game.slice(1) %></option>
                             <% } %>
                         </select>
                         <div class="valid-feedback">
@@ -68,10 +81,10 @@
                     </div>
             
                     <div class="mb-3">
-                        <label class="form-label" for="recurrence">Tournament On: </label>
+                        <label class="form-label" for="recurrence">Tournament On Every: </label>
                         <select class="form-control" id="recurrence" name="store[recurrence]">
                             <% for (let r of recurrence){ %>
-                                <option value="<%= r %>"><%= r.charAt(0).toUpperCase() + r.slice(1) %></option>
+                                <option value="<%= r %>" <%= store.recurrence === r ? 'selected' : '' %>><%= r.charAt(0).toUpperCase() + r.slice(1) %></option>
                             <% } %>
                         </select>
                         <div class="valid-feedback">
@@ -80,24 +93,16 @@
                     </div>
             
                     <div class="mb-3">
-                        <label class="form-label" for="time">Start Time: </label>
-                        <input class="form-control" type="number" id="time" name="store[time]" value="<%= store.time %>" placeholder="24 Hours & Number Only, ex. 1300 for 1pm" required>
+                        <label class="form-label" for="time">Start Time (in 24 Hours): </label>
+                        <select class="form-control" type="number" id="time" name="store[time]">
+                            <% for (var i=8; i<=23; i++){ %>
+                                <option value=<%= i * 100 %> <%= store.time === i * 100 ? 'selected' : '' %>><%= i %>: 00</option>
+                                <option value=<%= i * 100 + 30 %> <%= store.time === i * 100 + 30 ? 'selected' : '' %>><%= i %>: 30</option>
+                            <% } %>
+                        </select>
                         <div class="valid-feedback">
                             Looks good!
                         </div>
-                    </div>
-        
-                    <div class="mb-3">
-                        <label class="form-label" for="deleteImage">Delete Images: </label>
-                        <% store.image.forEach(function(img, i) { %>
-                        <div>
-                            <img src="<%= img.thumbnail %>" class="img-thumbnail" alt="">
-                        </div>
-                        <div class="form-check-inline">
-                            <input type="checkbox" id="image-<%= i %>" name="deleteImages[]" value="<%= img.filename %>">
-                        </div>
-                        <label for="image-<%=i%>">Delete This Image</label>
-                        <% }) %>
                     </div>
             
                     <button class="btn btn-info">Update</button>

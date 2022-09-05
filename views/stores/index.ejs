@@ -32,9 +32,11 @@
     </div>
 <% } %>
 
-<div mb-3>
-    <a href="/stores/new" class="btn btn-info">Add A New Store</a>
-</div>
+<% if(currentUser) { %>
+    <div mb-3>
+        <a href="/stores/new" class="btn btn-info">Add A New Store</a>
+    </div>
+<% } %>
 
 <script>
     const mapToken = '<%- process.env.MAPBOX_TOKEN %>';
