@@ -20,8 +20,7 @@ const helmet = require('helmet');
 const MongoDBStore = require("connect-mongo");
 
 const User = require('./models/user');
-const dbUrl = process.env.DB_URL;
-const devUrl = 'mongodb://localhost:27017/cardstore';
+const dbUrl = process.env.DB_URL || 'mongodb://localhost:27017/cardstore';
 
 mongoose.connect(dbUrl);
 
