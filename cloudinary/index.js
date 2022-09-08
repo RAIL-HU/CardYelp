@@ -11,7 +11,10 @@ const storage = new CloudinaryStorage({
     cloudinary,
     params: {
         folder: 'CardStores',
-        allowedFormats: ['jpeg', 'png', 'jpg']
+        allowedFormats: ['jpeg', 'png', 'jpg', 'heif'],
+        transformation: [
+            { width: 400, height: 300, gravity: "auto", crop: "fill" },
+        ]
     }
 });
 

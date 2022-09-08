@@ -17,12 +17,13 @@ const reviewRoutes = require('./routes/reviews');
 const userRoutes = require('./routes/users');
 const mongoSanitize = require('express-mongo-sanitize');
 const helmet = require('helmet');
+const MongoDBStore = require("connect-mongo");
 
 const User = require('./models/user');
 const dbUrl = process.env.DB_URL;
 const devUrl = 'mongodb://localhost:27017/cardstore';
 
-mongoose.connect(devUrl);
+mongoose.connect(dbUrl);
 
 const db = mongoose.connection;
 db.on("error", console.error.bind(console, "connection error:"));
@@ -42,16 +43,27 @@ app.use(mongoSanitize({
     replaceWith: '_'
 }));
 
+const secret = process.env.SECRET || 'thisISAsecret!!!';
+
+const store = MongoDBStore.create({
+    mongoUrl: dbUrl,
+    touchAfter: 24 * 60 * 60,
+    crypto: {
+        secret: secret
+    }
+});
+
 const sessionConfig = {
-    name: 'hello',
-    secret: 'thisisasecret',
+    store,
+    name: 'cardsession',
+    secret,
     resave: false,
     saveUninitialized: true,
     cookie: {
         httpOnly: true,
         // secure: true,
-        expires: Date.now() + 86400000 * 3,
-        maxAge: 86400000 * 3
+        expires: Date.now() + 86400000,
+        maxAge: 86400000
     }
 };
 app.use(session(sessionConfig));

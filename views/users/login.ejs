@@ -7,21 +7,28 @@
                 <img src="https://res.cloudinary.com/hky/image/upload/v1661993010/CardStores/photo-1557821552-17105176677c_dacljb.jpg" alt="" class="card-img-top">
                 <div class="card-body">
                     <h2 class="card-title">LOGIN</h2>
-                    <form action="/login" method="POST" class="validated-form" novalidate>
-                        <div class="mb-3">
-                            <label class="form-label" for="username">Username: </label>
-                            <input class="form-control" type="text" id="username" name="username" autofocus required>
-                        </div>
-                        <div class="mb-3">
-                            <label class="form-label" for="password">Password: </label>
-                            <input class="form-control" type="password" id="password" name="password" required>
-                        </div>
-                        <button class="btn btn-success btn-block">Login</button>
-                    </form>
+                    <div mb-3>
+                        <form action="/login" method="POST" class="validated-form" novalidate>
+                            <div class="mb-3">
+                                <label class="form-label" for="username">Username: </label>
+                                <input class="form-control" type="text" id="username" name="username" autofocus required>
+                            </div>
+                            <div class="mb-3">
+                                <label class="form-label" for="password">Password: </label>
+                                <input class="form-control" type="password" id="password" name="password" required>
+                            </div>
+                            <button class="btn btn-success btn-block">Login</button>
+                        </form>
+                    </div>
                 </div>
             </div>
             <hr>
-            <p>Due to technical difficulties, we are unable to provide password retrieving services at this moment. Please store backups your username and password in safe places. We're very sorry for any inconvenience.</p>
+            <div mb-3>
+                <p>No account yet?</p>
+                <a href="/register" class="btn btn-info btn-block">Register Now</a>
+            </div>
+            <hr>
+            <p>* Due to technical difficulties, we are unable to provide password retrieving services at this moment. Please store backups your username and password in safe places. We're very sorry for any inconvenience.</p>
         </div>
     </div>
 </div>
