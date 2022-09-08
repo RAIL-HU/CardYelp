@@ -12,7 +12,7 @@ Node.js, Express, MongoDB, CSS, Bootstrap
 The database structure is more complicated than Colt's version, sometimes it becomes an obstacle to keep up with Colt's course videos.
 
 ## Future Plans
-1. Better account experience by integrating Auth0
+1. Better and safer account management experience by integrating Auth0
 2. Make one store host multiple games by changing the MongoDB database structure (adding new collections).
 
 ## How to use this project
