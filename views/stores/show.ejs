@@ -30,7 +30,7 @@
                 <li class="list-group-item text-muted">Owned By: <%= store.author.username %></li>
                 <li class="list-group-item"><%= store.cardgame.charAt(0).toUpperCase() + store.cardgame.slice(1) %> @$<%= store.price %></li>
                 <li class="list-group-item">Description/Note: <%= store.description %></li>
-                <li class="list-group-item">Recurrence: <%= store.recurrence.charAt(0).toUpperCase() + store.recurrence.slice(1) %> <%= store.time / 100 %>: 00 (Local Time)</li>
+                <li class="list-group-item">Recurrence: <%= store.recurrence.charAt(0).toUpperCase() + store.recurrence.slice(1) %> <%= (store.time - (store.time % 100)) / 100 %>: <%= (store.time % 100) / 10 %>0 (Local Time)</li>
             </ul>
             <% if(currentUser && store.author.equals(currentUser._id)) { %>
             <div class="card-body">

@@ -140,6 +140,10 @@ app.get('/', (req, res) => {
     res.render('home');
 })
 
+app.get('/cookies', (req, res) => {
+    res.render('cookies');
+})
+
 app.all('*', (req, res, next) => {
     next(new ExpressError('Page Not Found', 404))
 })
