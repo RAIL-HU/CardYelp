@@ -16,7 +16,7 @@ The database structure is more complicated than Colt's version, sometimes it bec
 2. Make one store host multiple games by changing the MongoDB database structure (adding new collections).
 
 ## How to use this project
-This web app will be deployed soon using Heroku, please check back later for the link.
+This web app is deployed using Heroku. The link is https://young-falls-62701.herokuapp.com/.
 
 ## License
 MIT License
