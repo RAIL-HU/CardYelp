@@ -1,4 +1,4 @@
-# CardYelp (Testing)
+# CardYelp (Testing, latest version 0.9.1 Alpha)
 ## Introduction
 This is a web app for card stores to post tournament information, inspired by YelpCamp project of Colt Steele's web developer bootcamp (as my own learning outcome of this course).
 
