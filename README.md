@@ -13,7 +13,8 @@ The database structure is more complicated than Colt's version, sometimes it bec
 
 ## Future Plans
 1. Better and safer account management experience by integrating Auth0
-2. Make one store host multiple games by changing the MongoDB database structure (adding new collections).
+2. Make one store host multiple games by changing the MongoDB database structure (adding new collections)
+3. Add a personal summary page
 
 ## How to use this project
 This web app is deployed using Heroku. The link is https://young-falls-62701.herokuapp.com/.
