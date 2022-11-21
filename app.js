@@ -91,7 +91,8 @@ const connectSrcUrls = [
     "https://*.tiles.mapbox.com",
     "https://api.mapbox.com",
     "https://events.mapbox.com",
-    "https://res.cloudinary.com/hky/"
+    "https://res.cloudinary.com/hky/",
+    "https://*.auth0.com"
 ];
 const fontSrcUrls = [ "https://res.cloudinary.com/hky/" ];
  
